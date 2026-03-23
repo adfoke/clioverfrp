@@ -26,6 +26,13 @@ go.work.sum
 
 # env file
 .env
+.gocache/
+.gomodcache/
+bin/
+lagent
+task_report.json
+tmp/
+dist/
 
 # Editor/IDE
 # .idea/

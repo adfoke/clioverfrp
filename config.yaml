@@ -1,0 +1,38 @@
+agent:
+  token: "replace-with-your-agent-token"
+
+agents:
+  default: "dev"
+  dev:
+    ws_url: "ws://YOUR_FRPS_IP:60001/ws"
+    token: "replace-with-your-agent-token"
+  prod:
+    ws_url: "ws://YOUR_FRPS_IP:60002/ws"
+    token: "replace-with-your-prod-agent-token"
+
+lagent:
+  ws_url: "ws://YOUR_FRPS_IP:60001/ws"
+  json_output: false
+  quiet_mode: false
+  resume_enabled: true
+  resume_temp_suffix: ".clioverfrp.tmp"
+  max_retry: 5
+  chunk_size: 65536
+
+ragent:
+  listen: "127.0.0.1:9000"
+
+frpc:
+  enable: true
+  bin: "./frpc"
+  config: ""
+  server_addr: "YOUR_FRPS_IP"
+  server_port: 7000
+  auth_token: "replace-with-your-frp-token"
+  remote_port: 60001
+  proxy_name: "clioverfrp"
+
+bundle:
+  output_dir: "dist/ragent-bundle"
+  ragent_bin: "bin/ragent"
+  frpc_bin: "./frpc"
