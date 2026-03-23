@@ -30,6 +30,12 @@ make build
 
 - `bin/lagent`
 - `bin/ragent`
+- `dist/linux-amd64/lagent`
+- `dist/linux-amd64/ragent`
+- `dist/darwin-arm64/lagent`
+- `dist/darwin-arm64/ragent`
+- `dist/windows-amd64/lagent.exe`
+- `dist/windows-amd64/ragent.exe`
 
 ## 安装 lagent
 
@@ -41,6 +47,7 @@ make install-lagent
 
 默认会做两件事：
 
+- 如有需要，先执行 `make build`
 - 安装 `lagent` 到 `~/.local/bin/lagent`
 - 如果 `~/.config/clioverfrp/config.yaml` 不存在，就写入一份示例配置
 
@@ -214,6 +221,8 @@ export CLIOVERFRP_QUIET=true
 ./lagent --agent dev exec "hostname"
 ./lagent --agent prod ls /tmp
 ```
+
+`--list` 会主动连接每个目标，显示在线状态和远端 `os/arch/hostname`。
 
 ## 用法
 

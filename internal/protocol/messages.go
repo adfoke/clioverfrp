@@ -5,6 +5,9 @@ import "encoding/json"
 type Message struct {
 	Type       string     `json:"type"`
 	Token      string     `json:"token,omitempty"`
+	Hostname   string     `json:"hostname,omitempty"`
+	OS         string     `json:"os,omitempty"`
+	Arch       string     `json:"arch,omitempty"`
 	Cmd        string     `json:"cmd,omitempty"`
 	Path       string     `json:"path,omitempty"`
 	Local      string     `json:"local,omitempty"`
@@ -25,6 +28,12 @@ type Message struct {
 	DurationMS int64      `json:"duration_ms,omitempty"`
 	ExitCode   int        `json:"exit_code,omitempty"`
 	Entries    []DirEntry `json:"entries,omitempty"`
+}
+
+type AgentRuntimeInfo struct {
+	Hostname string `json:"hostname"`
+	OS       string `json:"os"`
+	Arch     string `json:"arch"`
 }
 
 type DirEntry struct {

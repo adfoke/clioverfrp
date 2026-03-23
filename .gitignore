@@ -26,6 +26,8 @@ go.work.sum
 
 # env file
 .env
+.DS_Store
+*.log
 .gocache/
 .gomodcache/
 bin/
@@ -35,5 +37,5 @@ tmp/
 dist/
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/

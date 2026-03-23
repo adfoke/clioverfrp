@@ -16,7 +16,7 @@ if [ ! -x "$LAGENT_BIN" ]; then
   echo "building lagent..."
   GOCACHE="${GOCACHE:-$ROOT_DIR/.gocache}" \
   GOMODCACHE="${GOMODCACHE:-$ROOT_DIR/.gomodcache}" \
-  go build -o "$ROOT_DIR/bin/lagent" ./cmd/lagent
+  make -C "$ROOT_DIR" build
 fi
 
 cp "$LAGENT_BIN" "$BIN_DIR/lagent"

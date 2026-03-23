@@ -36,6 +36,33 @@ type TransferOptions struct {
 	SkipExisting bool
 }
 
+func (c *Client) Info() (protocol.AgentRuntimeInfo, error) {
+	conn, _, err := c.connect()
+	if err != nil {
+		return protocol.AgentRuntimeInfo{}, err
+	}
+	defer conn.Close()
+
+	if err := wsjson.Write(conn, protocol.Message{Type: "info_request"}); err != nil {
+		return protocol.AgentRuntimeInfo{}, err
+	}
+	msg, err := wsjson.Read(conn)
+	if err != nil {
+		return protocol.AgentRuntimeInfo{}, err
+	}
+	if msg.Type == "error" {
+		return protocol.AgentRuntimeInfo{}, errors.New(msg.Error)
+	}
+	if msg.Type != "info_result" {
+		return protocol.AgentRuntimeInfo{}, errors.New("unexpected server response")
+	}
+	return protocol.AgentRuntimeInfo{
+		Hostname: msg.Hostname,
+		OS:       msg.OS,
+		Arch:     msg.Arch,
+	}, nil
+}
+
 func NewClient(cfg config.Config) *Client {
 	return &Client{Config: cfg}
 }

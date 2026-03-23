@@ -66,6 +66,14 @@ func TestClientServerExecListPushPull(t *testing.T) {
 	if string(downloadData) != "hello from push" {
 		t.Fatalf("unexpected download content: %q", string(downloadData))
 	}
+
+	info, err := client.Info()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if info.OS == "" || info.Arch == "" {
+		t.Fatalf("unexpected info: %+v", info)
+	}
 }
 
 func TestPushResumesFromExistingRemoteTemp(t *testing.T) {

@@ -104,6 +104,8 @@ func (s *Server) handleWS(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) handleMessage(conn *websocket.Conn, state *connectionState, msg protocol.Message) error {
 	switch msg.Type {
+	case "info_request":
+		return s.handleInfo(conn)
 	case "exec_request":
 		return s.handleExec(conn, msg)
 	case "ls_request":
@@ -119,6 +121,20 @@ func (s *Server) handleMessage(conn *websocket.Conn, state *connectionState, msg
 	default:
 		return fmt.Errorf("unsupported message type: %s", msg.Type)
 	}
+}
+
+func (s *Server) handleInfo(conn *websocket.Conn) error {
+	hostname, err := os.Hostname()
+	if err != nil {
+		hostname = ""
+	}
+	return wsjson.Write(conn, protocol.Message{
+		Type:     "info_result",
+		Success:  true,
+		Hostname: hostname,
+		OS:       runtime.GOOS,
+		Arch:     runtime.GOARCH,
+	})
 }
 
 func (s *Server) handleExec(conn *websocket.Conn, msg protocol.Message) error {

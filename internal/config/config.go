@@ -49,6 +49,11 @@ type AgentInfo struct {
 	IsDefault  bool   `json:"is_default"`
 	HasToken   bool   `json:"has_token"`
 	IsImplicit bool   `json:"is_implicit"`
+	Reachable  bool   `json:"reachable"`
+	Hostname   string `json:"hostname,omitempty"`
+	OS         string `json:"os,omitempty"`
+	Arch       string `json:"arch,omitempty"`
+	Error      string `json:"error,omitempty"`
 }
 
 func Default() Config {
